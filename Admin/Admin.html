@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin</title>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <link rel="stylesheet" href="Admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+</head>
+<body>
+  <div class="container">
+    <h2 id="form-title">Admin Login</h2>
+    <p id="error" style="color: red;"></p>
+
+    <form id="auth-form">
+      <!-- Registration fields -->
+      <div id="register-fields" style="display: none;">
+        <input type="text" id="lname" name="lname" placeholder="Last Name" />
+        <input type="text" id="fname" name="fname" placeholder="First Name" />
+        <input type="text" id="mname" name="mname" placeholder="Middle Name" />
+      </div>
+
+      <!-- Username (used as email) -->
+      <input type="text" id="username" name="username" placeholder="Email" required />
+
+      <!-- Password -->
+      <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="Password" required />
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+      </div>
+
+      <!-- Confirm password for registration -->
+      <div class="password-container" id="confirm-password-field" style="display: none;">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" />
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('confirm_password', this)"></i>
+      </div>
+
+      <button type="submit" id="submit-btn">Login</button>
+    </form>
+
+    <p id="switch-mode">
+      Don't have an account? <a href="#" onclick="toggleMode(true)">Register</a>
+    </p>
+  </div>
+
+  <script>
+    // Declare isRegisterMode in global scope
+    let isRegisterMode = false;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyBVVE4aKtFocBsIwpwlkR8PymB0qZFzEtE",
+        authDomain: "esp32proj-b2370.firebaseapp.com",
+        databaseURL: "https://esp32proj-b2370-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "esp32proj-b2370",
+        storageBucket: "esp32proj-b2370.appspot.com",
+        messagingSenderId: "600071239391",
+        appId: "1:600071239391:web:fc878248009cef04375b6a",
+        measurementId: "G-7WPC7Q5E6K"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // Toggle between login and register mode
+      window.toggleMode = function (registerMode) {
+        isRegisterMode = registerMode;
+
+        document.getElementById("form-title").innerText = registerMode ? "Admin Registration" : "Admin Login";
+        document.getElementById("submit-btn").innerText = registerMode ? "Register" : "Login";
+
+        const registerFields = document.getElementById("register-fields");
+        const confirmPasswordField = document.getElementById("confirm-password-field");
+
+        registerFields.style.display = registerMode ? "block" : "none";
+        confirmPasswordField.style.display = registerMode ? "block" : "none";
+
+        // Add/remove required attribute on registration fields dynamically
+        ["lname", "fname", "mname"].forEach(id => {
+          document.getElementById(id).required = registerMode;
+        });
+        document.getElementById("confirm_password").required = registerMode;
+
+        document.getElementById("switch-mode").innerHTML = registerMode
+          ? 'Already have an account? <a href="#" onclick="toggleMode(false)">Login</a>'
+          : 'Don\'t have an account? <a href="#" onclick="toggleMode(true)">Register</a>';
+
+        // Clear error message on mode change
+        document.getElementById("error").innerText = "";
+      };
+
+      // Toggle password visibility
+      window.togglePassword = function (fieldId, icon) {
+        const field = document.getElementById(fieldId);
+        const isPassword = field.type === "password";
+        field.type = isPassword ? "text" : "password";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+      };
+
+      // Handle form submission
+      document.getElementById("auth-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const email = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const errorEl = document.getElementById("error");
+
+        if (isRegisterMode) {
+          const confirmPassword = document.getElementById("confirm_password").value;
+          if (password !== confirmPassword) {
+            errorEl.innerText = "Passwords do not match.";
+            return;
+          }
+
+          try {
+            const userCred = await auth.createUserWithEmailAndPassword(email, password);
+            const uid = userCred.user.uid;
+
+            await db.collection("users").doc(uid).set({
+              email: email,
+              lname: document.getElementById("lname").value,
+              fname: document.getElementById("fname").value,
+              mname: document.getElementById("mname").value,
+            });
+
+            alert("Register Successfully!");
+            toggleMode(false);
+            errorEl.innerText = "";
+          } catch (error) {
+            errorEl.innerText = error.message;
+          }
+
+        } else {
+          try {
+            await auth.signInWithEmailAndPassword(email, password);
+            alert("Login Successful!");
+            window.location.href = "../Dashboard.html";
+          } catch (error) {
+            errorEl.innerText = "Invalid email or password.";
+          }
+        }
+      });
+
+      // Auto-enable registration mode if URL has ?register=true
+      if (window.location.search.includes("register=true")) {
+        toggleMode(true);
+      }
+    });
+  </script>
+</body>
+</html>

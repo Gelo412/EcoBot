@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Settings</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"/>
+  <script src="https://kit.fontawesome.com/b31b72720c.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, updatePassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBVVE4aKtFocBsIwpwlkR8PymB0qZFzEtE",
+        authDomain: "esp32proj-b2370.firebaseapp.com",
+        databaseURL: "https://esp32proj-b2370-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "esp32proj-b2370",
+        storageBucket: "esp32proj-b2370.appspot.com",
+        messagingSenderId: "600071239391",
+        appId: "1:600071239391:web:fc878248009cef04375b6a",
+        measurementId: "G-7WPC7Q5E6K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getFirestore(app);
+
+    let currentUser;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          document.getElementById("fname").value = data.fname || "";
+          document.getElementById("lname").value = data.lname || "";
+          document.getElementById("mname").value = data.mname || "";
+          document.getElementById("email").value = user.email;
+        }
+      } else {
+        window.location.href = "Admin.html";
+      }
+    });
+
+    async function updateSettings(e) {
+      e.preventDefault();
+
+      const fname = document.getElementById("fname").value;
+      const lname = document.getElementById("lname").value;
+      const mname = document.getElementById("mname").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        await updateDoc(userRef, {
+          fname,
+          lname,
+          mname,
+          email
+        });
+
+        if (password !== "") {
+          await updatePassword(currentUser, password);
+        }
+
+        alert("Account updated successfully!");
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    }
+
+    window.updateSettings = updateSettings;
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="js-sidebar flex flex-col justify-between h-screen">
+      <div class="h-full">
+        <div class="sidebar-logo"><a href="#">EcoBot</a></div>
+        <ul class="sidebar-nav">
+          <li class="sidebar-item"><a href="Dashboard.html" class="sidebar-link"><i class="fa-solid fa-list pe-2"></i>Dashboard</a></li>
+          <li class="sidebar-item"><a href="storage.html" class="sidebar-link"><i class="fa-solid fa-warehouse pe-2"></i>Storage</a></li>
+          <li class="sidebar-item"><a href="Profit.html" class="sidebar-link"><i class="fa-solid fa-money-bill-trend-up pe-2"></i>Profit</a></li>
+          <li class="sidebar-item"><a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#about-us"><i class="fa-solid fa-info-circle pe-2"></i>About Us</a>
+            <ul id="about-us" class="collapse sidebar-dropdown list-unstyled">
+              <li><a href="Contact.html" class="sidebar-link">Contact</a></li>
+              <li><a href="OurTeam.html" class="sidebar-link">Our Team</a></li>
+              <li><a href="TermsAndPolicies.html" class="sidebar-link">Terms & Policies</a></li>
+            </ul>
+          </li>
+          <li class="sidebar-item active"><a href="AccountSettings.html" class="sidebar-link"><i class="fa-solid fa-gear pe-2"></i>User Setting</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <nav class="navbar navbar-expand px-3 border-bottom">
+        <button class="btn" id="sidebar-toggle"><span class="navbar-toggler-icon"></span></button>
+      </nav>
+
+      <main class="container py-5">
+        <h2 class="text-center mb-4">Update Account Settings</h2>
+        <form onsubmit="updateSettings(event)" class="row g-3">
+          <div class="col-12"><label for="lname" class="form-label">Last Name</label><input type="text" id="lname" class="form-control" required></div>
+          <div class="col-12"><label for="fname" class="form-label">First Name</label><input type="text" id="fname" class="form-control" required></div>
+          <div class="col-12"><label for="mname" class="form-label">Middle Name</label><input type="text" id="mname" class="form-control" required></div>
+          
+          <div class="col-12"><label for="email" class="form-label">Email</label><input type="email" id="email" class="form-control" required></div>
+          <div class="col-12">
+            <label for="password" class="form-label">New Password (Leave blank to keep current)</label>
+            <div class="position-relative">
+              <input type="password" id="password" class="form-control">
+              <i class="fa-solid fa-eye toggle-password position-absolute top-50 end-0 translate-middle-y p-2" onclick="togglePassword('password', this)"></i>
+            </div>
+          </div>
+          <div class="col-12"><button type="submit" class="btn btn-primary w-100">Update Settings</button></div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      const isPass = field.type === "password";
+      field.type = isPass ? "text" : "password";
+      icon.classList.toggle("fa-eye-slash", isPass);
+      icon.classList.toggle("fa-eye", !isPass);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sidebar toggle
+    const sidebarToggle = document.querySelector("#sidebar-toggle");
+    sidebarToggle.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("collapsed");
+    });
+  </script>
+</body>
+</html>

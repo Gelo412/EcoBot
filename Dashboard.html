@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script>tailwind.config = { darkMode: 'class' };</script>
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/b31b72720c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="js-sidebar">
+            <div class="h-100">
+                <div class="sidebar-logo">
+                    <a href="#">EcoBot</a>
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item active">
+                        <a href="Dashboard.html" class="sidebar-link">
+                            <i class="fa-solid fa-list pe-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="storage.html" class="sidebar-link"> 
+                            <i class="fa-solid fa-warehouse pe-2"></i>
+                            Storage
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="Profit.html" class="sidebar-link">
+                            <i class="fa-solid fa-money-bill-trend-up pe-2"></i>
+                            Profit
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#about-us" aria-expanded="false">
+                            <i class="fa-solid fa-info-circle pe-2"></i>
+                            About Us
+                        </a>
+                        <ul id="about-us" class="sidebar-dropdown list-unstyled collapse">
+                            <li class="sidebar-item"><a href="Contact.html" class="sidebar-link">Contact</a></li>
+                            <li class="sidebar-item"><a href="OurTeam.html" class="sidebar-link">Our Team</a></li>
+                            <li class="sidebar-item"><a href="TermsAndPolicies.html" class="sidebar-link">Terms & Policies</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="AccountSettings.html" class="sidebar-link">
+                            <i class="fa-solid fa-gear pe-2"></i>
+                            User Setting
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <button class="btn" id="sidebar-toggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown d-flex align-items-center">
+                            <div class="dropdown">
+                                <a href="#" class="position-relative me-3" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-bell" style="font-size: 1rem;"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationCount">
+                                        0
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="notificationDropdown" style="width: 250px; max-height: 350px; overflow-y: auto;">
+                                    <li class="text-center text-muted">No Notifications</li>
+                                </ul>
+                            </div>
+                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                                <i class="fa-solid fa-user" style="font-size: 1.5rem !important; padding-right: 1rem;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="Admin/Admin.html" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4>Admin Dashboard</h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="card flex-fill border-0 illustration">
+                                <div class="card-body p-0 d-flex flex-fill">
+                                    <div class="row g-0 w-100">
+                                        <div class="col-6">
+                                            <div class="p-3 m-1">
+                                                <h4>Welcome Back!</h4>
+                                                <h3 id="fullName">Loading...</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 align-self-end text-end">
+                                            <img src="image/customer-support.jpg" class="img-fluid illustration-img" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="card flex-fill border-0">
+                                <div class="card-body py-4">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-grow-1">
+                                            <h4 class="mb-2">150</h4>
+                                            <p class="mb-2">Total Bottles Collected</p>
+                                            <div class="mb-0">
+                                                <span class="badge text-success me-2">0%</span>
+                                                <span class="text-muted">Bin Container</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Static Table -->
+                    <div class="card border-0">
+                        <div class="card-header">
+                            <h5 class="card-title">Status</h5>
+                            <h6 class="card-subtitle text-muted">Collected Ecobot</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Type</th>
+                                        <th>No. of Bottles</th>
+                                        <th>TimeStamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><th>1</th><td>Option A</td><td>3</td><td>4/12/2025</td></tr>
+                                    <tr><th>2</th><td>Option B</td><td>5</td><td>4/15/2025</td></tr>
+                                    <tr><th>3</th><td>Option A</td><td>3</td><td>4/25/2025</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVVE4aKtFocBsIwpwlkR8PymB0qZFzEtE",
+            authDomain: "esp32proj-b2370.firebaseapp.com",
+            databaseURL: "https://esp32proj-b2370-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "esp32proj-b2370",
+            storageBucket: "esp32proj-b2370.appspot.com",
+            messagingSenderId: "600071239391",
+            appId: "1:600071239391:web:fc878248009cef04375b6a",
+            measurementId: "G-7WPC7Q5E6K"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Listen for auth state change
+        auth.onAuthStateChanged(user => {
+            if (user) {
+            // User is signed in, fetch user data from Firestore
+            db.collection("users").doc(user.uid).get()
+                .then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    const fullName = `${data.fname} ${data.mname} ${data.lname}`;
+                    document.getElementById("fullName").innerText = fullName;
+                } else {
+                    document.getElementById("fullName").innerText = "User data not found";
+                }
+                })
+                .catch(error => {
+                console.error("Error getting user data:", error);
+                document.getElementById("fullName").innerText = "Error loading user data";
+                });
+            } else {
+            // No user logged in, redirect to login page
+            window.location.href = "Admin.html";  // Or your login page name
+            }
+        });
+
+        // Sidebar toggle
+        const sidebarToggle = document.querySelector("#sidebar-toggle");
+        sidebarToggle.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+        });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

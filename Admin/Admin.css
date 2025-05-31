@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(rgba(17, 24, 39));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%; 
+    font-family: 'Poppins', sans-serif;
+}
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    color: white;
+    box-sizing: border-box;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+input::placeholder {
+    color: #ccc;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button:hover {
+    background: #219150;
+}
+#error-msg {
+    color: #ff6b6b;
+    margin-top: 10px;
+}
+#submit-btn {
+    background-color: #38bdf8; 
+    color: #ffffff !important; 
+    font-weight: 600;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+  
+#submit-btn:hover {
+    background-color: #0ea5e9; 
+    transform: scale(1.05);
+}
+  
+#switch-mode a {
+    color: #38bdf8 !important;
+    font-weight: 500;
+    text-decoration: underline;
+}
+  
+  #switch-mode a:hover {
+    color: #0ea5e9;
+  }
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px; 
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 18px;
+}
+
+.toggle-password:hover {
+    color: #000;
+}

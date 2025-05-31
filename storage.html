@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"/>
+    <script src="https://kit.fontawesome.com/b31b72720c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside
+            id="sidebar"
+            class="js-sidebar flex flex-col justify-between h-screen"
+        >
+            <div class="h-full">
+                <div class="sidebar-logo">
+                    <a href="#">EcoBot</a>
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="Dashboard.html" class="sidebar-link">
+                            <i class="fa-solid fa-list pe-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-item active">
+                        <a href="storage.html" class="sidebar-link">
+                            <i class="fa-solid fa-warehouse pe-2"></i>
+                            Storage
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="Profit.html" class="sidebar-link">
+                            <i class="fa-solid fa-money-bill-trend-up pe-2"></i>
+                            Profit
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a
+                            href="#"
+                            class="sidebar-link collapsed"
+                            data-bs-target="#about-us"
+                            data-bs-toggle="collapse"
+                            aria-expanded="false"
+                        >
+                            <i class="fa-solid fa-info-circle pe-2"></i>
+                            About Us
+                        </a>
+                        <ul
+                            id="about-us"
+                            class="sidebar-dropdown list-unstyled collapse"
+                        >
+                            <li class="sidebar-item">
+                                <a href="Contact.html" class="sidebar-link"
+                                    >Contact</a
+                                >
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="OurTeam.html" class="sidebar-link"
+                                    >Our Team</a
+                                >
+                            </li>
+                            <li class="sidebar-item">
+                                <a
+                                    href="TermsAndPolicies.html"
+                                    class="sidebar-link"
+                                    >Terms & Policies</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="AccountSettings.html" class="sidebar-link">
+                            <i class="fa-solid fa-gear pe-2"></i>
+                            User Setting
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <button class="btn" id="sidebar-toggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown d-flex align-items-center">
+                            <div class="dropdown">
+                                <a
+                                    href="#"
+                                    class="position-relative me-3"
+                                    id="notificationDropdown"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <i
+                                        class="fa-solid fa-bell"
+                                        style="font-size: 1rem;"
+                                    ></i>
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                        id="notificationCount"
+                                    >
+                                        0
+                                        <!-- Default count -->
+                                    </span>
+                                </a>
+
+                                <!-- Dropdown Menu -->
+                                <ul
+                                    class="dropdown-menu dropdown-menu-end p-3"
+                                    aria-labelledby="notificationDropdown"
+                                    style="width: 250px; max-height: 350px; overflow-y: auto;"
+                                >
+                                    <li class="text-center text-muted">
+                                        No Notifications
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- User Icon -->
+                            <a
+                                href="#"
+                                data-bs-toggle="dropdown"
+                                class="nav-icon pe-md-0"
+                            >
+                                <i
+                                    class="fa-solid fa-user"
+                                    style="font-size: 1.5rem !important; padding-right: 1rem;"
+                                    alt=""
+                                ></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="logout.html" class="dropdown-item"
+                                    >Logout</a
+                                >
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main class="content px-3 py-2">
+                <div class="flex-grow-1 p-4">
+                    <!-- Header -->
+                    <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                    >
+                        <h2>Storage Management</h2>
+                    </div>
+
+                    <!-- Add Reward Form -->
+                    <div class="card my-4">
+                        <div class="card-header">Add Reward</div>
+                        <div class="card-body">
+                            <form id="addRewardForm" class="row g-3">
+                                <div class="col-md-3">
+                                    <label>Reward Type</label>
+                                    <select
+                                        name="table"
+                                        id="rewardType"
+                                        class="form-select"
+                                        required
+                                    >
+                                        <option value="small_reward">
+                                            Small Reward
+                                        </option>
+                                        <option value="big_reward">Big Reward</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Reward Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        id="rewardName"
+                                        placeholder="Enter Reward Name"
+                                        required
+                                        class="form-control"
+                                    />
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Quantity</label>
+                                    <input
+                                        type="number"
+                                        name="quantity"
+                                        id="rewardQuantity"
+                                        placeholder="Quantity"
+                                        required
+                                        class="form-control"
+                                    />
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label>&nbsp;</label>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-success w-100"
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Small Rewards Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            Option A (Small Reward)
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table
+                                    id="smallRewardTable"
+                                    class="table table-striped"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Big Rewards Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            Option B (Big Reward)
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table
+                                    id="bigRewardTable"
+                                    class="table table-striped"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            getDocs,
+            onSnapshot,
+            doc,
+            updateDoc,
+            deleteDoc,
+        } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+        // Your Firebase config here
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVVE4aKtFocBsIwpwlkR8PymB0qZFzEtE",
+            authDomain: "esp32proj-b2370.firebaseapp.com",
+            databaseURL: "https://esp32proj-b2370-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "esp32proj-b2370",
+            storageBucket: "esp32proj-b2370.appspot.com",
+            messagingSenderId: "600071239391",
+            appId: "1:600071239391:web:fc878248009cef04375b6a",
+            measurementId: "G-7WPC7Q5E6K"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // DOM Elements
+        const addRewardForm = document.getElementById("addRewardForm");
+        const rewardTypeSelect = document.getElementById("rewardType");
+        const rewardNameInput = document.getElementById("rewardName");
+        const rewardQuantityInput = document.getElementById("rewardQuantity");
+
+        const smallRewardTableBody =
+            document.querySelector("#smallRewardTable tbody");
+        const bigRewardTableBody =
+            document.querySelector("#bigRewardTable tbody");
+
+        // Render a reward row
+        function renderRewardRow(docData, docId, tableBody, collectionName) {
+            const tr = document.createElement("tr");
+
+            // Name cell with input
+            const nameTd = document.createElement("td");
+            const nameInput = document.createElement("input");
+            nameInput.type = "text";
+            nameInput.value = docData.name;
+            nameInput.classList.add("form-control");
+            nameInput.style.minWidth = "120px";
+            nameTd.appendChild(nameInput);
+            tr.appendChild(nameTd);
+
+            // Quantity cell with input
+            const qtyTd = document.createElement("td");
+            const qtyInput = document.createElement("input");
+            qtyInput.type = "number";
+            qtyInput.value = docData.quantity;
+            qtyInput.classList.add("form-control");
+            qtyInput.style.minWidth = "80px";
+            qtyTd.appendChild(qtyInput);
+            tr.appendChild(qtyTd);
+
+            // Actions cell with edit and delete buttons
+            const actionsTd = document.createElement("td");
+            actionsTd.classList.add("text-md-end", "text-center");
+
+            const containerDiv = document.createElement("div");
+            containerDiv.classList.add(
+                "d-flex",
+                "flex-wrap",
+                "gap-2",
+                "justify-content-end",
+                "sm:block",
+                "sm:w-full",
+                "sm:text-center"
+            );
+
+            // Edit button
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Edit";
+            editBtn.classList.add("btn", "btn-warning", "w-full", "sm:w-full", "sm:mt-2");
+            editBtn.addEventListener("click", async () => {
+                const newName = nameInput.value.trim();
+                const newQty = parseInt(qtyInput.value);
+                if (!newName || isNaN(newQty) || newQty < 0) {
+                    alert("Please enter valid name and quantity.");
+                    return;
+                }
+                try {
+                    const docRef = doc(db, collectionName, docId);
+                    await updateDoc(docRef, { name: newName, quantity: newQty });
+                } catch (error) {
+                    alert("Error updating reward: " + error.message);
+                }
+            });
+
+            // Delete button
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("btn", "btn-danger", "w-full", "sm:w-full", "sm:mt-2");
+            deleteBtn.addEventListener("click", async () => {
+                if (
+                    confirm(
+                        `Are you sure you want to delete the reward "${docData.name}"?`
+                    )
+                ) {
+                    try {
+                        const docRef = doc(db, collectionName, docId);
+                        await deleteDoc(docRef);
+                    } catch (error) {
+                        alert("Error deleting reward: " + error.message);
+                    }
+                }
+            });
+
+            containerDiv.appendChild(editBtn);
+            containerDiv.appendChild(deleteBtn);
+            actionsTd.appendChild(containerDiv);
+
+            tr.appendChild(actionsTd);
+
+            tableBody.appendChild(tr);
+        }
+
+        // Load rewards from Firestore and listen for changes
+        function listenRewards(collectionName, tableBody) {
+            const colRef = collection(db, collectionName);
+
+            onSnapshot(colRef, (snapshot) => {
+                tableBody.innerHTML = ""; // Clear current table body
+                snapshot.forEach((docSnap) => {
+                    renderRewardRow(docSnap.data(), docSnap.id, tableBody, collectionName);
+                });
+            });
+        }
+
+        // Listen to both collections
+        listenRewards("small_reward", smallRewardTableBody);
+        listenRewards("big_reward", bigRewardTableBody);
+
+        // Handle Add Reward form submission
+        addRewardForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const rewardType = rewardTypeSelect.value;
+            const rewardName = rewardNameInput.value.trim();
+            const rewardQuantity = parseInt(rewardQuantityInput.value);
+
+            if (!rewardName || isNaN(rewardQuantity) || rewardQuantity < 0) {
+                alert("Please enter valid reward name and quantity.");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, rewardType), {
+                    name: rewardName,
+                    quantity: rewardQuantity,
+                });
+
+                // Reset form fields
+                rewardNameInput.value = "";
+                rewardQuantityInput.value = "";
+            } catch (error) {
+                alert("Error adding reward: " + error.message);
+            }
+        });
+
+         // Sidebar toggle
+         const sidebarToggle = document.querySelector("#sidebar-toggle");
+        sidebarToggle.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+        });
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+</body>
+
+</html>

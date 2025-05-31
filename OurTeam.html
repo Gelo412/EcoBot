@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <script>tailwind.config = { darkMode: 'class' };</script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/b31b72720c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="js-sidebar">
+            <div class="h-100">
+                <div class="sidebar-logo">
+                    <a href="#">EcoBot</a>
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="Dashboard.html" class="sidebar-link">
+                            <i class="fa-solid fa-list pe-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="storage.html" class="sidebar-link"> 
+                            <i class="fa-solid fa-warehouse pe-2"></i>
+                            Storage
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="Profit.html" class="sidebar-link">
+                            <i class="fa-solid fa-money-bill-trend-up pe-2"></i>
+                            Profit
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#about-us" data-bs-toggle="collapse" aria-expanded="true">
+                            <i class="fa-solid fa-info-circle pe-2"></i>
+                            About Us
+                        </a>
+                        <ul id="about-us" class="sidebar-dropdown list-unstyled collapse show">
+                            <li class="sidebar-item">
+                                <a href="Contact.html" class="sidebar-link">Contact</a>
+                            </li>
+                            <li class="sidebar-item active">
+                                <a href="OurTeam.html" class="sidebar-link">Our Team</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="TermsAndPolicies.html" class="sidebar-link">Terms & Policies</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="AccountSettings.html" class="sidebar-link">
+                            <i class="fa-solid fa-gear pe-2"></i>
+                            User Setting
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <button class="btn" id="sidebar-toggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+            <main class="content px-3 py-2 d-flex justify-content-center">
+                <div class="container py-5">
+                    <h2 class="text-center mb-5">Meet Our Team</h2>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+                        <!-- Team Members -->
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Gelo.png" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Angelo S. Razon"><div class="card-body"><h5 class="card-title">Angelo S. Razon</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Ricardo.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Ricardo G. Villamora"><div class="card-body"><h5 class="card-title">Ricardo G. Villamora</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Robie.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Jan Robie Garcia"><div class="card-body"><h5 class="card-title">Jan Robie Garcia</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Rica.png" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Rica Mae E. Arellano"><div class="card-body"><h5 class="card-title">Rica Mae E. Arellano</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Joiem.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Joiem N. Guevarra"><div class="card-body"><h5 class="card-title">Joiem N. Guevarra</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Dave.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Christian Dave B. Fatallar"><div class="card-body"><h5 class="card-title">Christian Dave B. Fatallar</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Timothy.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Timothy C. Perez"><div class="card-body"><h5 class="card-title">Timothy C. Perez</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/Joevan.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Joevan D. Brezuela"><div class="card-body"><h5 class="card-title">Joevan D. Brezuela</h5></div></div></div>
+                        <div class="col"><div class="card h-100 text-center shadow-sm border-0"><img src="img/myka.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px;" alt="Jhon Myka Kuo"><div class="card-body"><h5 class="card-title">Jhon Myka Kuo</h5></div></div></div>
+
+                    </div>
+                </div>
+            </main>
+        </div>    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar toggle
+        const sidebarToggle = document.querySelector("#sidebar-toggle");
+        sidebarToggle.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+        });
+    </script>
+</body>
+
+</html>

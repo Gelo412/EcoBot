@@ -118,8 +118,8 @@
                                         <div class="flex-grow-1">
                                             <h4 class="mb-2">150</h4>
                                             <p class="mb-2">Total Bottles Collected</p>
-                                            <div class="mb-0">
-                                                <span class="badge text-success me-2">Ok</span>
+                                           <div class="mb-0" id="binStatusContainer">
+                                                <span class="badge me-2" id="binStatusBadge">Checking...</span>
                                                 <span class="text-muted">Bin Container</span>
                                             </div>
                                         </div>
@@ -238,6 +238,37 @@
                 console.error("Failed to load notifications:", err);
             });
     });
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("https://ecobot-idnm.onrender.com/api/bin-status")
+                .then(response => response.json())
+                .then(data => {
+                    // Assume you want the latest status
+                    const latest = data[data.length - 1]; // Get the last one
+        
+                    const badge = document.getElementById("binStatusBadge");
+        
+                    if (!latest || !badge) return;
+        
+                    if (latest.status === "full") {
+                        badge.classList.remove("text-success");
+                        badge.classList.add("text-danger");
+                        badge.textContent = "Full";
+                    } else {
+                        badge.classList.remove("text-danger");
+                        badge.classList.add("text-success");
+                        badge.textContent = "Ok";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching bin status:", error);
+                    const badge = document.getElementById("binStatusBadge");
+                    if (badge) {
+                        badge.classList.remove("text-success");
+                        badge.classList.add("text-warning");
+                        badge.textContent = "Error";
+                    }
+                });
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
